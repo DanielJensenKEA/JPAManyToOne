@@ -23,7 +23,10 @@ public class RegionRestController {
         return listRegioner;
     }
 
-    //Til Javascript region html form
+
+    /*
+    //Til Javascript region html form ( FRONTEND )
+     */
     @PostMapping("/region")
     @ResponseStatus(HttpStatus.CREATED)
     public Region postRegion(@RequestBody Region region) {
