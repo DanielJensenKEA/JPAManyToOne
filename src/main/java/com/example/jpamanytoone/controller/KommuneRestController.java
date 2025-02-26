@@ -36,6 +36,16 @@ public class KommuneRestController {
         System.out.println(kommune);
         return kommuneRepository.save(kommune);
     }
+
+    @GetMapping("/getlocalkommuner")
+    public List<Kommune> getLocalKommuner() {
+        List<Kommune> localListKom = kommuneRepository.findAll();
+        if (!localListKom.isEmpty()) {
+            return localListKom;
+        } else {
+            throw new NullPointerException("!BACKEND KommuneRestController! List was empty. !BACKEND KommuneRestController!");
+        }
+    }
     @DeleteMapping("/kommune/{kode}")
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> deleteKommune(@PathVariable String kode) {

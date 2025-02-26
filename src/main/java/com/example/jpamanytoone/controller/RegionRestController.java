@@ -22,6 +22,10 @@ public class RegionRestController {
         List<Region> listRegioner = apiServiceGetRegioner.getRegioner();
         return listRegioner;
     }
+    @GetMapping("/getregionerlocal")
+    public List<Region> getRegionerRepos() {
+        return regionRepository.findAll();
+    }
 
 
     /*
