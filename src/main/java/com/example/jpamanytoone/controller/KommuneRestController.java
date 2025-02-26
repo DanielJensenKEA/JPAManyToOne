@@ -57,5 +57,23 @@ public class KommuneRestController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Kommune not found.");
         }
     }
+    @PutMapping("/kommune/{kode}")
+    public ResponseEntity<Kommune> updateKommune(@PathVariable String kode,
+                                                 @RequestBody Kommune updatedKommune) {
+        Optional<Kommune> orgKommune = kommuneRepository.findById(kode); // Vi finder eksisterende kommune vi ønsker at overskrive
+        if (orgKommune.isPresent()) {
+            Kommune existingKom = orgKommune.get();
+
+            existingKom.setNavn(updatedKommune.getNavn()); //Vi overskriver existing med den kommune vi får fra vores frontend
+            existingKom.setHref(updatedKommune.getHref());
+            existingKom.setHrefPhoto(updatedKommune.getHrefPhoto());
+            existingKom.setRegion(updatedKommune.getRegion());
+
+            Kommune savedKom = kommuneRepository.save(existingKom); // Vi gemmer opdaterede kommune til vores database med JPA.
+            return ResponseEntity.ok(savedKom); // Alt er godt
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); //Alt er ikke godt.
+        }
+    }
 
 }
